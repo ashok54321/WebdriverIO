@@ -23,7 +23,7 @@ exports.config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './features/**/*.feature'
+        './features/**/category.feature'
     ],
     // Patterns to exclude.
     exclude: [
@@ -53,8 +53,18 @@ exports.config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome'
-    }],
+        browserName: 'chrome',
+            'goog:chromeOptions': {
+                //args: ['--disable-notifications','--start-maximized','--headless']
+            }
+        },
+        // {
+        // browserName: 'edge',
+        //     'ms:edgeOptions': {
+        //         args: ['--disable-notifications','--start-maximized','--headless']
+        //     }
+        // }
+],
 
     //
     // ===================
@@ -103,7 +113,14 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: [],
+
+    //to run only failed tests
+    //  services: [
+    //     ['rerun', {
+    //         maxRetries: 2, // default: 0
+    //         retryDelay: 0, // default: 0]
+    //     }],
+    //  ],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -126,7 +143,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec','dot',['allure', {
+    reporters: ['spec',['allure', {
         outputDir: 'allure-results',
         disableWebdriverStepsReporting: true,
         disableWebdriverScreenshotsReporting: true}]],
@@ -134,7 +151,10 @@ exports.config = {
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['./features/step-definitions/firstTest.steps.js'],
+        require: ['./features/step-definitions/firstTest.steps.js',
+                    './features/step-definitions/category.steps.js',
+                    './features/step-definitions/practicepage.steps.js'
+        ],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
@@ -152,7 +172,7 @@ exports.config = {
         // <boolean> fail if there are any undefined or pending steps
         strict: false,
         // <string> (expression) only execute the features or scenarios with tags matching the expression
-        tagExpression: '',
+       // tagExpression: '@smokeTest',
         // <number> timeout for step definitions
         timeout: 60000,
         // <boolean> Enable this config to treat undefined definitions as warnings.

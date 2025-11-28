@@ -1,5 +1,6 @@
 Feature: Ecommerce Application
 
+  @smokeTest
   Scenario: Login with invalid credentials
     Given User is on the login page of Ecommerce Application
     When User enters invalid username and password
