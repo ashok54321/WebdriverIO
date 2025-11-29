@@ -1,0 +1,16 @@
+{
+    "validUser": {
+        "username": "rahulshettyacademy",
+        "password": "learning"
+    },
+    "invalidUser": {
+        "username": "rahulshettyacademy1",
+        "password": "learning1"
+    },
+    "formFill": {
+        "name": "Seema",
+        "email": "seema#gmail.com",
+        "password": "12345",
+        "dob": "28/12/1998" 
+    }
+}
