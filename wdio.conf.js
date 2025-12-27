@@ -1,6 +1,6 @@
-const AllureReporter = require('@wdio/allure-reporter').default;
+import AllureReporter from '@wdio/allure-reporter';
 
-exports.config = {
+export const config = {
     //
     // ====================
     // Runner Configuration
@@ -23,7 +23,7 @@ exports.config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './features/**/category.feature'
+        './features/**/*.feature'
     ],
     // Patterns to exclude.
     exclude: [
@@ -153,7 +153,8 @@ exports.config = {
         // <string[]> (file/dir) require files before executing features
         require: ['./features/step-definitions/firstTest.steps.js',
                     './features/step-definitions/category.steps.js',
-                    './features/step-definitions/practicepage.steps.js'
+                    './features/step-definitions/practicepage.steps.js',
+                    './features/step-definitions/fileUploadDownload.steps.js'
         ],
         // <boolean> show full backtrace for errors
         backtrace: false,
@@ -232,8 +233,12 @@ exports.config = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+     before: function (capabilities, specs) {
+        //const chai = require('chai');
+        const chai = require('chai');
+        //global.assert = chai.assert;
+    
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {string} commandName hook command name
@@ -263,18 +268,19 @@ exports.config = {
         console.log("Starting Scenario: " + world.pickle.name);
          },
 
-    // afterTest: async function (test, context, { error, result, duration, passed, retries }) {
-    //     if (!passed) {
-    //         const screenshot = await browser.takeScreenshot();
-    //         AllureReporter.addAttachment('Screenshot on Failure', Buffer.from(screenshot, 'base64'), 'image/png');
-    //     }
-    // },
-    // afterScenario: async function (world, result, context) {
-    //     if (!result.passed) {
-    //         const screenshot = await browser.takeScreenshot();
-    //         AllureReporter.addAttachment('Screenshot on Failure', Buffer.from(screenshot, 'base64'), 'image/png');
-    //     }
-    // },
+    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+        if (!passed) {
+            const screenshot = await browser.takeScreenshot();
+            AllureReporter.addAttachment('Screenshot on Failure', Buffer.from(screenshot, 'base64'), 'image/png');
+        }
+    },
+    
+    afterScenario: async function (world, result, context) {
+        if (!result.passed) {
+            const screenshot = await browser.takeScreenshot();
+            AllureReporter.addAttachment('Screenshot on Failure', Buffer.from(screenshot, 'base64'), 'image/png');
+        }
+    },
 
     /**
      *

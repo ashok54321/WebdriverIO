@@ -1,5 +1,6 @@
 import Page from './page.js';
 import TestData from '../../testdata/users.json';
+import { assert } from 'chai';
 
 class CategoryPage extends Page {
 
@@ -117,6 +118,7 @@ class CategoryPage extends Page {
          await this.dobField.setValue(TestData.formFill.dob)
          await this.submitButton.click()
          await browser.pause(10000)
+            //assert.fail();      // added chai Assertion in config file and imported   
     }
 
 
