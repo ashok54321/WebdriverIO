@@ -82,11 +82,11 @@ async verifyDashboard() {
     await expect(headerText).toEqual('ProtoCommerce')
 
     // Generate a timestamp string
-    //const timestamp = new Date().toISOString().replace(/:/g, '-');
-    //const screenshotName = `screenshot-${timestamp}.png`;
+    const timestamp = new Date().toISOString().replace(/:/g, '-');
+    const screenshotName = `screenshot-${timestamp}.png`;
 
     // Take the screenshot using the dynamically generated filename
-    //await browser.saveScreenshot(`./screenshots/${screenshotName}`);
+    await browser.saveScreenshot(`./screenshots/${screenshotName}`);
     //await browser.saveScreenshot('./screenshots/dashboard2.png');
 }
 
